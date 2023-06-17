@@ -1,0 +1,71 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+Instale la versión más reciente de PowerShell para obtener nuevas características y mejoras. https://aka.ms/PSWindows
+
+PS C:\Users\Lander> psql -U postgres
+Contraseña para usuario postgres:
+psql (14.8)
+ADVERTENCIA: El código de página de la consola (850) difiere del código
+            de página de Windows (1252).
+            Los caracteres de 8 bits pueden funcionar incorrectamente.
+            Vea la página de referencia de psql «Notes for Windows users»
+            para obtener más detalles.
+Digite «help» para obtener ayuda.
+
+postgres=# CREATE DATABASE "desafio-lander-123";
+CREATE DATABASE
+postgres=# \c "desafio-lander-123"
+Ahora está conectado a la base de datos «desafio-lander-123» con el usuario «postgres».
+desafio-lander-123=# CREATE TABLE clients (
+desafio-lander-123(# id SERIAL PRIMARY KEY,
+desafio-lander-123(# name VARCHAR NOT NULL,
+desafio-lander-123(# email VARCHAR(50) NOT NULL UNIQUE,
+desafio-lander-123(# phone VARCHAR(16),
+desafio-lander-123(# company VARCHAR(50) NOT NULL,
+desafio-lander-123(# priority SMALLINT NOT NULL CHECK(priority BETWEEN 1 AND 10),
+desafio-lander-123(# created_at TIMESTAMP DEFAULT NOW(),
+desafio-lander-123(# updated_at TIMESTAMP DEFAULT NOW()
+desafio-lander-123(# );
+CREATE TABLE
+desafio-lander-123=# INSERT INTO clients
+desafio-lander-123-# (
+desafio-lander-123(# name,email,phone,company,priority
+desafio-lander-123(# )
+desafio-lander-123-# VALUES
+desafio-lander-123-# ('Logan Roy','logan.roy@waystar.royco.com', '+2 566 789 1234','Waystar Royco',9),
+desafio-lander-123-# ('Kendall Roy','kendall.roy@waystar.royco.com', '+3 586 779 1294','Waystar Royco',5),
+desafio-lander-123-# ('Siobhan Roy','shiv.roy@waystar.royco.com', '+1 786 459 3534','President',10),
+desafio-lander-123-# ('Roman Roy','roman.roy@waystar.royco.com', '+4 578 778 7834','CEO',6),
+desafio-lander-123-# ('Connor Roy','connor.roy@waystar.royco.com', '+5 898 119 9994','Society',7)
+desafio-lander-123-# ;
+INSERT 0 5
+desafio-lander-123=# SELECT * FROM clients;
+ id |    name     |             email             |      phone      |    company    | priority |         created_at         |         updated_at
+----+-------------+-------------------------------+-----------------+---------------+----------+----------------------------+----------------------------
+  1 | Logan Roy   | logan.roy@waystar.royco.com   | +2 566 789 1234 | Waystar Royco |        9 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  2 | Kendall Roy | kendall.roy@waystar.royco.com | +3 586 779 1294 | Waystar Royco |        5 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  3 | Siobhan Roy | shiv.roy@waystar.royco.com    | +1 786 459 3534 | President     |       10 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  4 | Roman Roy   | roman.roy@waystar.royco.com   | +4 578 778 7834 | CEO           |        6 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  5 | Connor Roy  | connor.roy@waystar.royco.com  | +5 898 119 9994 | Society       |        7 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+(5 filas)
+
+
+desafio-lander-123=# SELECT * FROM clients ORDER BY priority DESC,id ASC LIMIT 3;
+ id |    name     |            email             |      phone      |    company    | priority |         created_at         |         updated_at
+----+-------------+------------------------------+-----------------+---------------+----------+----------------------------+----------------------------
+  3 | Siobhan Roy | shiv.roy@waystar.royco.com   | +1 786 459 3534 | President     |       10 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  1 | Logan Roy   | logan.roy@waystar.royco.com  | +2 566 789 1234 | Waystar Royco |        9 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  5 | Connor Roy  | connor.roy@waystar.royco.com | +5 898 119 9994 | Society       |        7 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+(3 filas)
+
+
+desafio-lander-123=# SELECT * FROM clients WHERE (priority = 9 OR company = 'President');
+ id |    name     |            email            |      phone      |    company    | priority |         created_at         |         updated_at
+----+-------------+-----------------------------+-----------------+---------------+----------+----------------------------+----------------------------
+  1 | Logan Roy   | logan.roy@waystar.royco.com | +2 566 789 1234 | Waystar Royco |        9 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+  3 | Siobhan Roy | shiv.roy@waystar.royco.com  | +1 786 459 3534 | President     |       10 | 2023-06-12 17:55:57.793749 | 2023-06-12 17:55:57.793749
+(2 filas)
+
+
+desafio-lander-123=#
